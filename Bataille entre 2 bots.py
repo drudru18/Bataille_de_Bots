@@ -5,15 +5,22 @@ from colorama import Fore, Back, Style
 import time
 import random
 
-class Battle:
-    def __init__(self, life1, life2, combo1, combo2):
+class Player:
+    def __init__(self, name):
+        self.name = name
+        Battle(100, 100, 0, 0, self.name)
+        
+
+class Battle(Player):
+    def __init__(self, life1, life2, combo1, combo2, name):
+        self.name = name
         self.combo1 = combo1
         self.combo2 = combo2
         self.life1 = life1
         time.sleep(random.uniform(1, 2))
-        print(20*"\n"+'\033[1m'+"|"+Fore.LIGHTGREEN_EX+self.life1*"O"+Fore.WHITE+'\033[1m'+"|"+"\n")
+        print(20*"\n"+'\033[1m'+"|"+Fore.LIGHTGREEN_EX+self.life1*"O"+Fore.WHITE+'\033[1m'+"|\t •BOT 1•"+"\n")
         self.life2 = life2
-        print('\033[1m'+"|"+Fore.LIGHTGREEN_EX+self.life2*"O"+Fore.WHITE+'\033[1m'+"|"+"\n")
+        print('\033[1m'+"|"+Fore.LIGHTGREEN_EX+self.life2*"O"+Fore.WHITE+'\033[1m'+"|\t •BOT 2•"+"\n")
         if self.life1 <= 0 or self.life2 <= 0:
             self.__str__()
         else:
@@ -21,9 +28,9 @@ class Battle:
             if self.random == 1:
                 self.bot1()
             self.bot2()
-        ou = str(input(30*"\n"+"Voulez-vous recommencer un combat ? OUI/NON \n -->  "))
+        ou = str(input(30*"\n"+'\033[0m'+"Voulez-vous recommencer un combat sous le pseudo "+'\033[1m'+self.name+'\033[0m'+" ? OUI/NON \n -->  "+'\033[1m'))
         if ou.lower() == "oui":
-            Battle(100, 100, 0, 0)
+            Battle(100, 100, 0, 0, self.name)
         elif ou.lower() == "non":
             exit()
         else:
@@ -51,7 +58,7 @@ class Battle:
                 self.life2-=self.damage
                 time.sleep(random.randint(1, 2))
                 print("Le BOT 1 a contre-attaqué le BOT 2 et lui a mis "+ str(self.damage) + " dégâts !\n")
-        return Battle(self.life1, self.life2, self.combo1, self.combo2)
+        return Battle(self.life1, self.life2, self.combo1, self.combo2, self.name)
     
     def bot2(self):
         self.combo1 = 0
@@ -74,7 +81,7 @@ class Battle:
                 self.life1-=self.damage
                 time.sleep(random.randint(1, 2))
                 print("Le BOT 2 a contre-attaqué le BOT 1 et lui a mis "+ str(self.damage) + " dégâts !\n")
-        return Battle(self.life1, self.life2, self.combo1, self.combo2)
+        return Battle(self.life1, self.life2, self.combo1, self.combo2, self.name)
 
     def attack(self):
         self.damage = random.randint(8, 12)
@@ -86,4 +93,4 @@ class Battle:
             print(Fore.LIGHTRED_EX+'\033[1m'+"Le BOT 2 a gagné !"+Fore.WHITE)
         time.sleep(3)
     
-Battle(100, 100, 0, 0)
+Player(str(input("Please enter your name: ")))
