@@ -1,5 +1,5 @@
 """ Bataille entre 2 bots
-Code écrit entièrement par DRU®"""
+Code écrit entièrement par DRU"""
 
 from colorama import Fore, Back, Style
 import time
@@ -8,6 +8,8 @@ import random
 class Player:
     def __init__(self, name):
         self.name = name
+        if len(self.name) > 20:
+            self.name = self.name[:19]
         Battle(100, 100, 0, 0, 0, 0, 0, 0, self.name)
         
 
@@ -96,8 +98,7 @@ class Battle(Player):
     
     def leaderboard(self):
         with open("log.txt", "a") as file:
-            
-            file.write("Username:\t"+self.name.upper()+"\t\t\t\tTemps passé: "+str(round(self.total_time, 2))+" sec.\n\nBot_1\t\tCombats Gagnés:\t"+str(self.win1)+"\t\tCombats Perdus:\t"+str(self.lose1)+"\nBot_2\t\tCombats Gagnés:\t"+str(self.win2)+"\t\tCombats Perdus:\t"+str(self.lose2)+"\n\n----------------------------------------------------------------------\n\n")
+            file.write("Username:\t"+self.name.upper()+"\t\tTemps passé: "+str(round(self.total_time, 2))+" sec.\n\nBot_1\t\tCombats Gagnés:\t"+str(self.win1)+"\t\tCombats Perdus:\t"+str(self.lose1)+"\nBot_2\t\tCombats Gagnés:\t"+str(self.win2)+"\t\tCombats Perdus:\t"+str(self.lose2)+"\n\n----------------------------------------------------------------------\n\n")
         
     def __str__(self):
         if self.life1 > self.life2:
