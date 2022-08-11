@@ -1,0 +1,30 @@
+{
+    "Arthur": {
+        "Total_time": [
+            1.93,
+            1.17
+        ],
+        "Bot 1 Win": 2,
+        "Bot 1 Lose": 0,
+        "Bot 2 Win": 0,
+        "Bot 2 Lose": 2
+    },
+    "Alex": {
+        "Total_time": [
+            1.0
+        ],
+        "Bot 1 Win": 0,
+        "Bot 1 Lose": 1,
+        "Bot 2 Win": 1,
+        "Bot 2 Lose": 0
+    },
+    "Andrea": {
+        "Total_time": [
+            1.0
+        ],
+        "Bot 1 Win": 0,
+        "Bot 1 Lose": 1,
+        "Bot 2 Win": 1,
+        "Bot 2 Lose": 0
+    }
+}

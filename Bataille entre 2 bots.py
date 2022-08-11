@@ -3,6 +3,7 @@ Code écrit entièrement par DRU"""
 
 from colorama import Fore, Back, Style
 import time
+from logs import Logs
 import random
 
 class Player:
@@ -15,6 +16,7 @@ class Player:
 
 class Battle(Player):
     def __init__(self, life1, life2, combo1, combo2, win1, win2, lose1, lose2, name):
+        self.logs = Logs()
         self.start = time.time()
         self.lose1 = lose1
         self.lose2 = lose2
@@ -24,7 +26,7 @@ class Battle(Player):
         self.combo1 = combo1
         self.combo2 = combo2
         self.life1 = life1
-        time.sleep(random.uniform(1, 2))
+        time.sleep(random.uniform(1, 1))
         print(20*"\n"+'\033[1m'+"|"+Fore.LIGHTGREEN_EX+self.life1*"O"+Fore.WHITE+'\033[1m'+"|\t •BOT 1•"+"\n")
         self.life2 = life2
         print('\033[1m'+"|"+Fore.LIGHTGREEN_EX+self.life2*"O"+Fore.WHITE+'\033[1m'+"|\t •BOT 2•"+"\n")
@@ -66,7 +68,7 @@ class Battle(Player):
                 self.combo1+=1
                 self.attack()
                 self.life2-=self.damage
-                time.sleep(random.randint(1, 2))
+                time.sleep(random.randint(1, 1))
                 print("Le BOT 1 a contre-attaqué le BOT 2 et lui a mis "+ str(self.damage) + " dégâts !\n")
         return Battle(self.life1, self.life2, self.combo1, self.combo2, self.win1, self.win2, self.lose1, self.lose2, self.name)
     
@@ -89,7 +91,7 @@ class Battle(Player):
                 self.combo2+=1
                 self.attack()
                 self.life1-=self.damage
-                time.sleep(random.randint(1, 2))
+                time.sleep(random.randint(1, 1))
                 print("Le BOT 2 a contre-attaqué le BOT 1 et lui a mis "+ str(self.damage) + " dégâts !\n")
         return Battle(self.life1, self.life2, self.combo1, self.combo2, self.win1, self.win2, self.lose1, self.lose2, self.name)
 
@@ -97,8 +99,16 @@ class Battle(Player):
         self.damage = random.randint(8, 12)
     
     def leaderboard(self):
-        with open("log.txt", "a") as file:
-            file.write("Username:\t"+self.name.upper()+"\t\tTemps passé: "+str(round(self.total_time, 2))+" sec.\n\nBot_1\t\tCombats Gagnés:\t"+str(self.win1)+"\t\tCombats Perdus:\t"+str(self.lose1)+"\nBot_2\t\tCombats Gagnés:\t"+str(self.win2)+"\t\tCombats Perdus:\t"+str(self.lose2)+"\n\n----------------------------------------------------------------------\n\n")
+        self.logs.write_log(self.name, round(self.total_time, 2), self.win1, self.lose1, self.win2, self.lose2)
+        while True:
+            choice = input(f"""Voulez-vous afficher les statistiques? {Fore.CYAN + "[Y/n]" + Style.RESET_ALL}""")
+            if choice in 'Yy':
+                print(self.logs)
+                break
+            elif choice in 'Nn':
+                print("Ok ciao")
+                break
+            
         
     def __str__(self):
         if self.life1 > self.life2:
@@ -112,6 +122,6 @@ class Battle(Player):
         self.end = time.time()
         self.total_time = self.end - self.start
         self.leaderboard()
-        time.sleep(3)
+        input("Press enter to skip")
     
 Player(str(input("Veuillez entrer votre nom d'utilisateur: ")))
