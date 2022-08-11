@@ -2,7 +2,7 @@ import json
 
 class Logs:
     def __init__(self):
-        self.__file = "logs.json"
+        self.__file = "Logs/logs.json"
 
     def load_log_content(self):
         with open(self.__file, 'r') as f:
