@@ -42,7 +42,7 @@ class Battle(Player):
             self.bot2()
         self.ou = str(input(30*"\n"+'\033[0m'+"Voulez-vous recommencer un combat sous le pseudo "+'\033[1m'+self.name.upper()+'\033[0m'+" ? OUI/NON \n -->  "+'\033[1m'))
         if self.ou.lower() == "oui":
-            Battle(100, 100, 0, 0, self.win1, self.win2, self.lose1, self.lose2, self.name, self.start)
+            Battle(100, 100, 0, 0, 0, 0, 0, 0, self.name, self.start)
         elif self.ou.lower() == "non":
             print("\nCe programme se ferme")
             time.sleep(0.5)
@@ -106,7 +106,7 @@ class Battle(Player):
     def leaderboard(self):
         self.logs.write_log(self.name, round(self.total_time, 2), self.win1, self.lose1, self.win2, self.lose2)
         while True:
-            choice = input(f"""Voulez-vous afficher les statistiques? {Fore.CYAN + "[Y/n]" + Style.RESET_ALL}""")
+            choice = input(f"""Voulez-vous afficher les statistiques? {Fore.CYAN + "[Y/n]" + Style.RESET_ALL}  """)
             if choice in 'Yy':
                 print(self.logs)
                 input("Presse enter to skip ")
