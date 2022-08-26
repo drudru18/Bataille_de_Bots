@@ -1,12 +1,13 @@
 """ Bataille entre 2 bots
 Code écrit entièrement par DRU"""
 
-from colorama import Fore, Back, Style
+from colorama import Fore, Back, Style, init
 import time
 from Logs.logs import Logs
 import random
 from Menu import Menu
 
+init(autoreset=True) # Automaticly reset char style after using colorama :)
 cur = float(time.time())
 
 class Player:
