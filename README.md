@@ -6,4 +6,4 @@ Un petit code où 2 bots se battent de façon "humaine" et qui font des attaques
 
 ###### <ins> Credits: </ins>
 
-@GaecKo <3
+@GaecKo

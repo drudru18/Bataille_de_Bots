@@ -5,6 +5,7 @@ from colorama import Fore, Back, Style
 import time
 from Logs.logs import Logs
 import random
+from Menu import Menu
 
 cur = float(time.time())
 
@@ -44,14 +45,14 @@ class Battle(Player):
         if self.ou.lower() == "oui":
             Battle(100, 100, 0, 0, 0, 0, 0, 0, self.name, self.start)
         elif self.ou.lower() == "non":
-            print("\nCe programme se ferme")
-            time.sleep(0.5)
-            self.start -= 0.5
-            exit()
+            print("\nRetour au Menu")
+            time.sleep(1)
+            self.start -= 1
+            return Menu().menu()
         else:
             print("Coisissez oui ou non ! (ce programme se ferme)")
-            time.sleep(0.5)
-            self.start -= 0.5
+            time.sleep(1)
+            self.start -= 1
             exit()
 
     def bot1(self):
@@ -126,6 +127,3 @@ class Battle(Player):
         self.end = time.time()
         self.total_time = float(self.end - self.start)
         self.leaderboard()
-        
-    
-Player(str(input("Veuillez entrer votre nom d'utilisateur: ")), time.time())
