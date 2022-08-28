@@ -32,9 +32,9 @@ class Battle(Player):
         self.life1 = life1
         ran_time = random.uniform(1, 2)
         time.sleep(ran_time)
-        print(20*"\n"+'\033[1m'+"|"+Fore.LIGHTGREEN_EX+self.life1*"O"+Fore.WHITE+'\033[1m'+"|\t •BOT 1•"+"\n")
+        print(20*"\n"+'\033[1m'+"|"+Fore.LIGHTGREEN_EX+self.life1*"O"+Fore.WHITE+'\033[1m'+"|\t •BOT 1•"+ Style.RESET_ALL + "\n")
         self.life2 = life2
-        print('\033[1m'+"|"+Fore.LIGHTGREEN_EX+self.life2*"O"+Fore.WHITE+'\033[1m'+"|\t •BOT 2•"+"\n")
+        print('\033[1m'+"|"+Fore.LIGHTGREEN_EX+self.life2*"O"+Fore.WHITE+'\033[1m'+"|\t •BOT 2•"+ Style.RESET_ALL + "\n")
         if self.life1 <= 0 or self.life2 <= 0:
             self.__str__()
         else:
@@ -46,7 +46,7 @@ class Battle(Player):
         if self.ou.lower() == "oui":
             Battle(100, 100, 0, 0, 0, 0, 0, 0, self.name, self.start)
         elif self.ou.lower() == "non":
-            print("\nRetour au Menu")
+            print("\nRetour au Menu" + Style.RESET_ALL)
             time.sleep(1)
             self.start -= 1
             return Menu().menu()
@@ -106,7 +106,7 @@ class Battle(Player):
         self.damage = random.randint(8, 12)
     
     def leaderboard(self):
-        self.logs.write_log(self.name, round(self.total_time, 2), self.win1, self.lose1, self.win2, self.lose2)
+        self.logs.write_log(self.name.lower(), round(self.total_time, 2), self.win1, self.lose1, self.win2, self.lose2)
         while True:
             choice = input(f"""Voulez-vous afficher les statistiques? {Fore.CYAN + "[Y/n]" + Style.RESET_ALL}  """)
             if choice in 'Yy':

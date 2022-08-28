@@ -48,7 +48,7 @@ class Logs:
         """
         This is a test function, to validate and improve by @Drudru18
         """
-        leaderboard = "LeaderBoard: 🚀"
+        leaderboard = "LeaderBoard: 🚀\n\n"
         content = self.load_log_content()
         best_ratio = [] # shows the best ratio (between Bot 1 - Bot 2) per player and sort it
         worst_ratio = [] # shows the worst ratio (between Bot 1 - Bot 2) per player and sort it
@@ -59,10 +59,9 @@ class Logs:
 
         for player, data in content.items():
             game_played = len(data["Total_time"])
-
             # === Adding best ratio per player ===
             if data["Ratio Bot 1"] >= data["Ratio Bot 2"]:
-                biggest_ratio = data["Ration Bot 1"]
+                biggest_ratio = data["Ratio Bot 1"]
             else:
                 biggest_ratio = data["Ratio Bot 2"]
             best_ratio.append([player, biggest_ratio])
@@ -89,16 +88,23 @@ class Logs:
             best_overall_bot["Bot 2"] += data["Bot 2 Win"]
 
             # still has to sort all of the lists and create the string containing the leaderboard itself :)
-
-                           
-
-
-        
-        
-
+        best_ratio.sort(key=lambda x : x[1], reverse=True)
+        worst_ratio.sort(key=lambda x : x[1], reverse=False)
+        most_win.sort(key=lambda x : x[1], reverse=True)
+        most_time_spent.sort(key=lambda x : x[1], reverse=True)
+        if best_overall_bot["Bot 1"] > best_overall_bot["Bot 2"]:
+            best_overall_bot = f"""\n BOT 1: {best_overall_bot["Bot 1"]} wins\n BOT 2: {best_overall_bot["Bot 2"]} wins"""
+        elif best_overall_bot["Bot 2"] > best_overall_bot["Bot 1"]:
+            best_overall_bot = f"""\n BOT 2: {best_overall_bot["Bot 2"]} wins\n BOT 1: {best_overall_bot["Bot 1"]} wins"""
+        elif best_overall_bot["Bot 2"] == best_overall_bot["Bot 1"]:
+            best_overall_bot = f"""\n BOT 1 and BOT 2 have same the same win rate! ({best_overall_bot["Bot 1"]} wins) """
+           
     def __str__(self) -> str:
         content = self.load_log_content()
         stri = ""
         for players, data in content.items():
             stri += "Username:\t"+players.upper()+"\t\tTemps passé: "+str(round(sum(data["Total_time"]), 2))+" sec.\n\nBot_1\t\tCombats Gagnés:\t"+str(data["Bot 1 Win"])+"\t\tCombats Perdus:\t"+str(data["Bot 1 Lose"])+"\t\tRatio: "+str(data["Ratio Bot 1"])+"%\nBot_2\t\tCombats Gagnés:\t"+str(data["Bot 2 Win"])+"\t\tCombats Perdus:\t"+str(data["Bot 2 Lose"])+"\t\tRatio: "+str(data["Ratio Bot 2"])+"%\n\nRatio calculé en fonction des matchs gagnés sur le total de ceux-ci\n\n----------------------------------------------------------------------\n\n"
         return stri
+
+logs = Logs()
+logs.leaderboard()
